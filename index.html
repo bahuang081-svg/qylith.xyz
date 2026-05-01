@@ -3,39 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qylith - The First AI-Native, Quantum-Resistant Layer 1</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Qylith — The First AI-Native, Quantum-Resistant Layer 1</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+        
         :root {
-            --bg-dark: #050508;
-            --bg-card: rgba(15, 15, 25, 0.8);
-            --accent-cyan: #00D4FF;
-            --accent-purple: #7B2FFF;
-            --text-primary: #FFFFFF;
-            --text-secondary: rgba(255, 255, 255, 0.7);
-            --text-muted: rgba(255, 255, 255, 0.5);
+            --bg-primary: #030308;
+            --bg-secondary: #0a0a12;
+            --bg-card: #0d0d18;
+            --cyan: #00D4FF;
+            --purple: #7B2FFF;
+            --text-primary: #ffffff;
+            --text-secondary: #8a8a9a;
+            --text-tertiary: #5a5a6a;
+            --border: rgba(255,255,255,0.06);
+            --glow-cyan: 0 0 40px rgba(0, 212, 255, 0.3);
+            --glow-purple: 0 0 40px rgba(123, 47, 255, 0.3);
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         html {
             scroll-behavior: smooth;
         }
-
+        
         body {
-            font-family: 'Space Grotesk', sans-serif;
-            background: var(--bg-dark);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
             color: var(--text-primary);
-            overflow-x: hidden;
             line-height: 1.6;
+            overflow-x: hidden;
         }
-
+        
+        ::selection {
+            background: var(--purple);
+            color: white;
+        }
+        
         /* Navigation */
         nav {
             position: fixed;
@@ -47,65 +55,47 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(5, 5, 8, 0.9);
+            background: rgba(3, 3, 8, 0.8);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(123, 47, 255, 0.1);
+            border-bottom: 1px solid var(--border);
         }
-
-        .logo {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 1.25rem;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            color: var(--text-primary);
         }
-
+        
+        .nav-logo svg {
+            width: 28px;
+            height: 28px;
+        }
+        
         .nav-links {
             display: flex;
             gap: 2.5rem;
             list-style: none;
         }
-
+        
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.875rem;
             font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
+            letter-spacing: 0.02em;
+            transition: color 0.3s ease;
         }
-
+        
         .nav-links a:hover {
-            color: var(--accent-cyan);
+            color: var(--cyan);
         }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Quantum Canvas Background */
-        #quantum-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
+        
         /* Hero Section */
         .hero {
             min-height: 100vh;
@@ -114,813 +104,1204 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 8rem 2rem 4rem;
             position: relative;
+            padding: 2rem;
+            overflow: hidden;
         }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 50px;
-            font-size: 0.85rem;
-            color: var(--accent-cyan);
-            margin-bottom: 2rem;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .hero-badge::before {
+        
+        /* Grid Background */
+        .hero::before {
             content: '';
-            width: 8px;
-            height: 8px;
-            background: var(--accent-cyan);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+            background-size: 80px 80px;
+            mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
         }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
+        
+        /* Particles Canvas */
+        #particles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
         }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            max-width: 900px;
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
         }
-
-        .hero h1 .gradient {
-            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 50%, var(--accent-cyan) 100%);
-            background-size: 200% 200%;
+        
+        /* Q Logo */
+        .q-logo {
+            width: 160px;
+            height: 160px;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        
+        .q-logo svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 60px rgba(0, 212, 255, 0.4));
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), filter 0.5s ease;
+        }
+        
+        .q-logo:hover svg {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 80px rgba(123, 47, 255, 0.5));
+        }
+        
+        .project-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 200;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--cyan), var(--purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradient-shift 5s ease infinite;
         }
-
-        @keyframes gradient-shift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .hero p {
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
+        
+        .hero-tagline {
+            font-size: clamp(0.875rem, 2vw, 1.125rem);
+            font-weight: 300;
             color: var(--text-secondary);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
             max-width: 600px;
-            margin-bottom: 3rem;
         }
-
+        
         .hero-buttons {
             display: flex;
             gap: 1rem;
+            margin-top: 2rem;
             flex-wrap: wrap;
             justify-content: center;
         }
-
+        
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1rem;
+            padding: 0.875rem 1.75rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
             text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
+            border-radius: 4px;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
         }
-
+        
         .btn-primary {
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-            color: var(--bg-dark);
-            box-shadow: 0 4px 30px rgba(0, 212, 255, 0.3);
+            background: linear-gradient(135deg, var(--cyan), var(--purple));
+            color: var(--bg-primary);
         }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 40px rgba(0, 212, 255, 0.5);
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--purple), var(--cyan));
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-
+        
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+        
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+        
         .btn-secondary {
             background: transparent;
             color: var(--text-primary);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid var(--border);
         }
-
+        
         .btn-secondary:hover {
-            border-color: var(--accent-cyan);
-            color: var(--accent-cyan);
+            border-color: var(--cyan);
+            color: var(--cyan);
+            box-shadow: var(--glow-cyan);
         }
-
+        
+        .btn svg {
+            width: 18px;
+            height: 18px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Scroll Indicator */
         .scroll-indicator {
             position: absolute;
-            bottom: 2rem;
+            bottom: 3rem;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 0.5rem;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            animation: bounce 2s infinite;
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            animation: float 3s ease-in-out infinite;
         }
-
-        @keyframes bounce {
+        
+        @keyframes float {
             0%, 100% { transform: translateX(-50%) translateY(0); }
             50% { transform: translateX(-50%) translateY(10px); }
         }
-
-        /* Section Styles */
+        
+        .scroll-indicator .mouse {
+            width: 24px;
+            height: 36px;
+            border: 2px solid var(--text-tertiary);
+            border-radius: 12px;
+            position: relative;
+        }
+        
+        .scroll-indicator .mouse::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: var(--cyan);
+            border-radius: 2px;
+            animation: scroll 2s ease-in-out infinite;
+        }
+        
+        @keyframes scroll {
+            0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            50% { opacity: 0.3; transform: translateX(-50%) translateY(8px); }
+        }
+        
+        /* Section Base */
         section {
-            padding: 6rem 2rem;
-            max-width: 1200px;
+            padding: 8rem 2rem;
+            max-width: 1400px;
             margin: 0 auto;
         }
-
+        
         .section-header {
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 5rem;
         }
-
+        
         .section-label {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--accent-cyan);
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--cyan);
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            letter-spacing: 3px;
             margin-bottom: 1rem;
         }
-
+        
         .section-title {
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 700;
-            margin-bottom: 1rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
         }
-
-        .section-desc {
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
+        
+        /* Quantum Threat Section */
+        .quantum-threat {
+            background: var(--bg-secondary);
+            border-radius: 24px;
+            padding: 6rem 3rem;
+            margin: 2rem auto;
+            max-width: 1400px;
+            position: relative;
+            overflow: hidden;
         }
-
-        /* Threat Stats */
-        .threat-grid {
+        
+        .quantum-threat::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(123, 47, 255, 0.1), transparent 60%);
+            pointer-events: none;
+        }
+        
+        .threat-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .threat-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(123, 47, 255, 0.2);
-            border-radius: 20px;
-            padding: 2.5rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .threat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
-        }
-
-        .threat-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(0, 212, 255, 0.5);
-            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.1);
-        }
-
-        .threat-number {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .threat-number.cyan { color: var(--accent-cyan); }
-        .threat-number.purple { color: var(--accent-purple); }
-
-        .threat-label {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-
-        .threat-sublabel {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-        }
-
-        /* Architecture Section */
-        .architecture {
-            background: linear-gradient(180deg, transparent, rgba(123, 47, 255, 0.05), transparent);
-        }
-
-        .arch-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .arch-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .arch-card:hover {
-            border-color: var(--accent-purple);
-            background: rgba(123, 47, 255, 0.05);
-        }
-
-        .arch-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
-        }
-
-        .arch-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.75rem;
-            font-weight: 600;
-        }
-
-        .arch-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .arch-tag {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: rgba(0, 212, 255, 0.1);
-            color: var(--accent-cyan);
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-family: 'JetBrains Mono', monospace;
-            margin-top: 1rem;
-        }
-
-        /* About Section */
-        .about {
-            text-align: center;
-        }
-
-        .about-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(123, 47, 255, 0.2);
-            border-radius: 24px;
-            padding: 4rem;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .about-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-            margin: 0 auto 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
-        }
-
-        .about-name {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .about-role {
-            color: var(--accent-cyan);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .about-bio {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-
-        .about-stats {
-            display: flex;
-            justify-content: center;
             gap: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent-purple);
-        }
-
-        .stat-label {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        /* CTA Section */
-        .cta {
-            text-align: center;
-            padding: 8rem 2rem;
-        }
-
-        .cta-box {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(123, 47, 255, 0.1));
-            border: 1px solid rgba(123, 47, 255, 0.3);
-            border-radius: 32px;
-            padding: 5rem 3rem;
-            max-width: 800px;
-            margin: 0 auto;
             position: relative;
-            overflow: hidden;
+            z-index: 1;
         }
-
-        .cta-box::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
-            animation: rotate 20s linear infinite;
+        
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        
+        .stat-card:hover {
+            border-color: rgba(0, 212, 255, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
-
-        .cta h2 {
-            font-size: clamp(2rem, 5vw, 3rem);
+        
+        .stat-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 700;
+            line-height: 1;
             margin-bottom: 1rem;
-            position: relative;
-        }
-
-        .cta p {
-            color: var(--text-secondary);
-            margin-bottom: 2.5rem;
-            position: relative;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            position: relative;
-        }
-
-        /* Footer */
-        footer {
-            padding: 4rem 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-logo {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            background: linear-gradient(135deg, var(--cyan), var(--purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 1rem;
         }
-
-        .footer-links {
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Countdown Pulse Effect */
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 400px;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            border-radius: 50%;
+            animation: pulse 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        .pulse-ring:nth-child(2) { animation-delay: 2s; }
+        .pulse-ring:nth-child(3) { animation-delay: 4s; }
+        .pulse-ring:nth-child(4) { animation-delay: 6s; }
+        
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+        }
+        
+        /* Architecture Section */
+        .architecture {
+            position: relative;
+        }
+        
+        .stack-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .stack-layer {
+            position: relative;
+            padding: 2.5rem 3rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            overflow: hidden;
+        }
+        
+        .stack-layer::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.05;
+            transition: opacity 0.4s ease;
+        }
+        
+        .stack-layer:hover::before {
+            opacity: 0.1;
+        }
+        
+        .layer-ai {
+            background: linear-gradient(135deg, rgba(123, 47, 255, 0.15), rgba(123, 47, 255, 0.05));
+            border: 1px solid rgba(123, 47, 255, 0.3);
+            margin-left: 0;
+        }
+        
+        .layer-stark {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 212, 255, 0.03));
+            border: 1px solid rgba(0, 212, 255, 0.25);
+            margin-left: 3rem;
+        }
+        
+        .layer-consensus {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-left: 6rem;
+        }
+        
+        .stack-layer:hover {
+            transform: translateX(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .layer-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .layer-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            padding: 0.25rem 0.5rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px;
+        }
+        
+        .layer-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .layer-tech {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            color: var(--cyan);
+            margin-top: 0.5rem;
+        }
+        
+        .layer-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .stack-layer:hover .layer-details,
+        .stack-layer.active .layer-details {
+            max-height: 200px;
+            margin-top: 1.5rem;
+        }
+        
+        .layer-details p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+        
+        /* Architecture Side Panel */
+        .arch-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        @media (max-width: 900px) {
+            .arch-grid {
+                grid-template-columns: 1fr;
+            }
+            .layer-stark { margin-left: 2rem; }
+            .layer-consensus { margin-left: 4rem; }
+        }
+        
+        .specs-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            position: sticky;
+            top: 120px;
+        }
+        
+        .specs-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--cyan);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.875rem;
+        }
+        
+        .spec-item:last-child {
+            border-bottom: none;
+        }
+        
+        .spec-label {
+            color: var(--text-tertiary);
+        }
+        
+        .spec-value {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        /* FALCON Section */
+        .falcon-section {
+            background: var(--bg-secondary);
+            border-radius: 24px;
+            padding: 6rem 3rem;
+            margin: 2rem auto;
+            max-width: 1400px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 3rem;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .comparison-table th {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        
+        .comparison-table th:first-child {
+            color: var(--text-secondary);
+        }
+        
+        .comparison-table td {
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .comparison-table tr:hover td {
+            background: rgba(0, 212, 255, 0.05);
+        }
+        
+        .comparison-table .highlight {
+            background: rgba(0, 212, 255, 0.1);
+        }
+        
+        .comparison-table .highlight td {
+            color: var(--cyan);
+            font-weight: 500;
+        }
+        
+        .comparison-table tr:hover .highlight {
+            background: rgba(0, 212, 255, 0.15);
+        }
+        
+        .check {
+            color: #00ff88;
+        }
+        
+        .comparison-table .table-highlight {
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 8px;
+        }
+        
+        .comparison-table .table-highlight td {
+            border: none;
+        }
+        
+        .comparison-table .table-highlight:hover {
+            background: rgba(0, 212, 255, 0.15);
+        }
+        
+        .falcon-conclusion {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        .falcon-conclusion p {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        .falcon-conclusion span {
+            color: var(--cyan);
+            font-weight: 600;
+        }
+        
+        /* Manifesto Section */
+        .manifesto {
+            text-align: center;
+            padding: 10rem 2rem;
+            position: relative;
+        }
+        
+        .manifesto::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(0, 212, 255, 0.05), transparent 60%);
+            pointer-events: none;
+        }
+        
+        .manifesto-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(6rem, 20vw, 15rem);
+            font-weight: 700;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--cyan), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.8;
+        }
+        
+        .manifesto-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 300;
+            max-width: 700px;
+            margin: 2rem auto;
+            line-height: 1.4;
+        }
+        
+        .manifesto-bio {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 2rem auto;
+            line-height: 1.8;
+        }
+        
+        .manifesto-links {
             display: flex;
             justify-content: center;
             gap: 2rem;
-            margin-bottom: 2rem;
+            margin-top: 2rem;
         }
-
+        
+        .manifesto-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .manifesto-links a:hover {
+            color: var(--cyan);
+        }
+        
+        .manifesto-links svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 4rem 2rem;
+            border-top: 1px solid var(--border);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 1.125rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .footer-copy {
+            color: var(--text-tertiary);
+            font-size: 0.875rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
         .footer-links a {
             color: var(--text-secondary);
             text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
             transition: color 0.3s ease;
         }
-
+        
         .footer-links a:hover {
-            color: var(--accent-cyan);
+            color: var(--cyan);
         }
-
-        .footer-copy {
-            color: var(--text-muted);
-            font-size: 0.9rem;
+        
+        .footer-tagline {
+            text-align: center;
+            width: 100%;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            font-style: italic;
         }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            nav {
-                padding: 1rem 1.5rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .hero {
-                padding: 6rem 1.5rem 3rem;
-            }
-
-            section {
-                padding: 4rem 1.5rem;
-            }
-
-            .threat-card {
-                padding: 2rem;
-            }
-
-            .threat-number {
-                font-size: 2.5rem;
-            }
-
-            .about-card {
-                padding: 2.5rem 1.5rem;
-            }
-
-            .about-stats {
-                gap: 1.5rem;
-            }
-
-            .cta-box {
-                padding: 3rem 1.5rem;
-            }
-        }
-
+        
         /* Animations */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
-            animation: fadeIn 0.8s ease forwards;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
         }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Counter Animation */
+        .count-up {
+            display: inline-block;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            section {
+                padding: 5rem 1.5rem;
+            }
+            
+            .quantum-threat,
+            .falcon-section {
+                padding: 4rem 1.5rem;
+                border-radius: 16px;
+            }
+            
+            .threat-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-table {
+                font-size: 0.8rem;
+            }
+            
+            .comparison-table th,
+            .comparison-table td {
+                padding: 1rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
             }
         }
-
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
-        .delay-4 { animation-delay: 0.8s; }
     </style>
 </head>
 <body>
-    <canvas id="quantum-canvas"></canvas>
-
+    <!-- Navigation -->
     <nav>
-        <div class="logo">Qylith</div>
+        <a href="#" class="nav-logo">
+            <svg viewBox="0 0 40 40" fill="none">
+                <defs>
+                    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#00D4FF"/>
+                        <stop offset="100%" stop-color="#7B2FFF"/>
+                    </linearGradient>
+                </defs>
+                <circle cx="20" cy="20" r="18" stroke="url(#logoGrad)" stroke-width="2" fill="none"/>
+                <circle cx="20" cy="20" r="12" stroke="url(#logoGrad)" stroke-width="2" fill="none"/>
+                <circle cx="20" cy="20" r="6" fill="url(#logoGrad)"/>
+            </svg>
+            Qylith
+        </a>
         <ul class="nav-links">
-            <li><a href="#threat">Threat</a></li>
             <li><a href="#architecture">Architecture</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="https://github.com/bahuang081-svg/Qylith" target="_blank">GitHub</a></li>
+            <li><a href="#falcon">FALCON</a></li>
+            <li><a href="#manifesto">Manifesto</a></li>
+            <li><a href="https://github.com/qylith" target="_blank">Code</a></li>
         </ul>
     </nav>
 
-    <section class="hero">
-        <div class="hero-badge">Quantum-Resistant Infrastructure</div>
-        <h1 class="fade-in">The First <span class="gradient">AI-Native, Quantum-Resistant</span> Layer 1</h1>
-        <p class="fade-in delay-1">Building the cryptographic foundation for a post-quantum world. FALCON-1024 + ML-KEM-768 + STARK, powered by AI Agent Runtime.</p>
-        <div class="hero-buttons fade-in delay-2">
-            <a href="https://github.com/bahuang081-svg/Qylith" class="btn btn-primary" target="_blank">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                View on GitHub
-            </a>
-            <a href="https://twitter.com/ZoahQYL" class="btn btn-secondary" target="_blank">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                Follow @ZoahQYL
-            </a>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <canvas id="particles"></canvas>
+        <div class="hero-content">
+            <div class="q-logo">
+                <svg viewBox="0 0 200 200" fill="none">
+                    <defs>
+                        <linearGradient id="qGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#00D4FF"/>
+                            <stop offset="50%" stop-color="#00D4FF"/>
+                            <stop offset="100%" stop-color="#7B2FFF"/>
+                        </linearGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <!-- Outer ring -->
+                    <circle cx="100" cy="100" r="90" stroke="url(#qGrad)" stroke-width="3" fill="none" filter="url(#glow)"/>
+                    <!-- Middle ring -->
+                    <circle cx="100" cy="100" r="70" stroke="url(#qGrad)" stroke-width="2" fill="none" opacity="0.7"/>
+                    <!-- Inner ring -->
+                    <circle cx="100" cy="100" r="50" stroke="url(#qGrad)" stroke-width="1.5" fill="none" opacity="0.5"/>
+                    <!-- Q shape -->
+                    <path d="M100 50 L100 90 L75 115 L100 140 L100 150 L65 115 L100 80 L100 50" 
+                          stroke="url(#qGrad)" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+                    <!-- Center dot -->
+                    <circle cx="100" cy="100" r="8" fill="url(#qGrad)"/>
+                </svg>
+            </div>
+            <h1 class="project-name">Qylith</h1>
+            <p class="hero-tagline">The First AI-Native, Quantum-Resistant Layer 1</p>
+            <div class="hero-buttons">
+                <a href="https://github.com/qylith" target="_blank" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                    </svg>
+                    <span>Read the Code</span>
+                </a>
+                <a href="https://twitter.com/qylith" target="_blank" class="btn btn-secondary">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                    <span>Follow the Build</span>
+                </a>
+            </div>
         </div>
         <div class="scroll-indicator">
-            <span>Scroll to explore</span>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+            <div class="mouse"></div>
+            <span>Scroll</span>
         </div>
     </section>
 
-    <section id="threat">
-        <div class="section-header">
-            <p class="section-label">Quantum Computing Threat</p>
-            <h2 class="section-title">The Imminent Cryptographic Crisis</h2>
-            <p class="section-desc">Quantum computers are advancing faster than expected. RSA-2048 could be broken by 2027, exposing $2.5T in encrypted data.</p>
+    <!-- Quantum Threat Section -->
+    <section class="quantum-threat" id="threat">
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <div class="section-header fade-in">
+            <p class="section-label">The Reality</p>
+            <h2 class="section-title">The Quantum Clock Is Ticking</h2>
         </div>
-        <div class="threat-grid">
-            <div class="threat-card fade-in delay-1">
-                <div class="threat-number cyan" data-target="2.5" data-suffix="T">$0</div>
-                <div class="threat-label">At Risk Assets</div>
-                <div class="threat-sublabel">Trillions USD in blockchain & financial assets</div>
+        <div class="threat-stats">
+            <div class="stat-card fade-in">
+                <div class="stat-number" data-target="2.5" data-suffix="T">$0</div>
+                <p class="stat-label">Assets at risk in cryptography-dependent systems</p>
             </div>
-            <div class="threat-card fade-in delay-2">
-                <div class="threat-number purple" data-target="2027" data-suffix="">0</div>
-                <div class="threat-label">Estimated Break Year</div>
-                <div class="threat-sublabel">When RSA-2048 becomes vulnerable</div>
+            <div class="stat-card fade-in">
+                <div class="stat-number" data-target="2027" data-suffix="">0</div>
+                <p class="stat-label">Earliest projected quantum attack window</p>
             </div>
-            <div class="threat-card fade-in delay-3">
-                <div class="threat-number cyan" data-target="0" data-suffix="">0</div>
-                <div class="threat-label">Quantum-Safe L1 Solutions</div>
-                <div class="threat-sublabel">Currently in production worldwide</div>
+            <div class="stat-card fade-in">
+                <div class="stat-number" data-target="0" data-suffix="">0</div>
+                <p class="stat-label">Layer 1 blockchains with native post-quantum security</p>
             </div>
         </div>
     </section>
 
-    <section id="architecture" class="architecture">
-        <div class="section-header">
-            <p class="section-label">Technical Architecture</p>
-            <h2 class="section-title">Post-Quantum Cryptographic Stack</h2>
-            <p class="section-desc">Built from the ground up with quantum-resistant algorithms. No compromises on security.</p>
+    <!-- Architecture Section -->
+    <section class="architecture" id="architecture">
+        <div class="section-header fade-in">
+            <p class="section-label">Technical Foundation</p>
+            <h2 class="section-title">Built Different. From Genesis Block.</h2>
         </div>
         <div class="arch-grid">
-            <div class="arch-card fade-in delay-1">
-                <div class="arch-icon">🔐</div>
-                <h3>FALCON-1024</h3>
-                <p>Fast Fourier Lattice-based Compact Signature over NTRU. Quantum-resistant digital signatures with minimal bandwidth.</p>
-                <span class="arch-tag">NIST Level V</span>
+            <div class="stack-container">
+                <div class="stack-layer layer-ai fade-in" onclick="this.classList.toggle('active')">
+                    <div class="layer-header">
+                        <span class="layer-number">Layer 3</span>
+                        <div>
+                            <h3 class="layer-title">AI Agent Runtime</h3>
+                            <p class="layer-tech">Native on-chain AI execution environment</p>
+                        </div>
+                    </div>
+                    <div class="layer-details">
+                        <p>Autonomous smart contracts that can reason, learn, and execute decisions. Built-in ML inference with cryptographic proofs of AI behavior. No off-chain computation required.</p>
+                    </div>
+                </div>
+                <div class="stack-layer layer-stark fade-in" onclick="this.classList.toggle('active')">
+                    <div class="layer-header">
+                        <span class="layer-number">Layer 2</span>
+                        <div>
+                            <h3 class="layer-title">STARK Proof Layer</h3>
+                            <p class="layer-tech">Scalable Transparent ARguments of Knowledge</p>
+                        </div>
+                    </div>
+                    <div class="layer-details">
+                        <p>Post-quantum secure proofs. No trusted setup. Recursive verification enables massive scalability while maintaining cryptographic security against quantum attacks.</p>
+                    </div>
+                </div>
+                <div class="stack-layer layer-consensus fade-in" onclick="this.classList.toggle('active')">
+                    <div class="layer-header">
+                        <span class="layer-number">Layer 1</span>
+                        <div>
+                            <h3 class="layer-title">FALCON-1024 + ML-KEM-768</h3>
+                            <p class="layer-tech">NIST Post-Quantum Cryptographic Primitives</p>
+                        </div>
+                    </div>
+                    <div class="layer-details">
+                        <p>Every signature, every key exchange, every hash—protected by lattice-based cryptography. The entire consensus and state transition mechanism is quantum-resistant from day one.</p>
+                    </div>
+                </div>
             </div>
-            <div class="arch-card fade-in delay-2">
-                <div class="arch-icon">🛡️</div>
-                <h3>ML-KEM-768</h3>
-                <p>Module-Lattice Key Encapsulation Mechanism. Post-quantum key exchange securing all network communications.</p>
-                <span class="arch-tag">NIST Level III</span>
-            </div>
-            <div class="arch-card fade-in delay-3">
-                <div class="arch-icon">📜</div>
-                <h3>STARK</h3>
-                <p>Scalable Transparent Arguments of Knowledge. Succinct, transparent proofs enabling trustless verification.</p>
-                <span class="arch-tag">Quantum-Safe</span>
-            </div>
-            <div class="arch-card fade-in delay-4">
-                <div class="arch-icon">🤖</div>
-                <h3>AI Agent Runtime</h3>
-                <p>Native AI agent execution environment. Autonomous smart contracts with machine learning capabilities.</p>
-                <span class="arch-tag">EVM Compatible</span>
+            <div class="specs-panel fade-in">
+                <p class="specs-title">Network Specifications</p>
+                <div class="spec-item">
+                    <span class="spec-label">Consensus</span>
+                    <span class="spec-value">PoS + STARK</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Signature Scheme</span>
+                    <span class="spec-value">FALCON-1024</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">KEM</span>
+                    <span class="spec-value">ML-KEM-768</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Finality</span>
+                    <span class="spec-value">< 2 seconds</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">TPS</span>
+                    <span class="spec-value">10,000+</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Block Time</span>
+                    <span class="spec-value">200ms</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="about" class="about">
-        <div class="section-header">
-            <p class="section-label">Founder</p>
-            <h2 class="section-title">Built by</h2>
+    <!-- FALCON Section -->
+    <section class="falcon-section" id="falcon">
+        <div class="section-header fade-in">
+            <p class="section-label">Cryptographic Superiority</p>
+            <h2 class="section-title">Why FALCON-1024</h2>
         </div>
-        <div class="about-card fade-in">
-            <div class="about-avatar">👤</div>
-            <h3 class="about-name">Zoah</h3>
-            <p class="about-role">Founder & Lead Developer</p>
-            <p class="about-bio">
-                18 years old, building Qylith from the ground up. Obsessed with post-quantum cryptography, AI agents, and the future of decentralized systems. No VC money. No hype. Just code.
-            </p>
-            <div class="about-stats">
-                <div class="stat">
-                    <div class="stat-value">18</div>
-                    <div class="stat-label">Age</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">24/7</div>
-                    <div class="stat-label">Building</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">$0</div>
-                    <div class="stat-label">VC Raised</div>
-                </div>
-            </div>
+        <div class="table-wrapper fade-in">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>FALCON-1024</th>
+                        <th>ML-DSA-87</th>
+                        <th>Dilithium</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-highlight">
+                        <td>Security Level</td>
+                        <td>NIST Level 5</td>
+                        <td>NIST Level 5</td>
+                        <td>NIST Level 2-5</td>
+                    </tr>
+                    <tr>
+                        <td>Signature Size</td>
+                        <td style="color: var(--cyan); font-weight: 600;">1.3 KB</td>
+                        <td>4.6 KB</td>
+                        <td>2.4 - 4.6 KB</td>
+                    </tr>
+                    <tr>
+                        <td>Verification</td>
+                        <td style="color: var(--cyan); font-weight: 600;">0.15ms</td>
+                        <td>~1ms</td>
+                        <td>0.2 - 0.6ms</td>
+                    </tr>
+                    <tr>
+                        <td>Quantum Safe</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                    </tr>
+                    <tr>
+                        <td>Key Size</td>
+                        <td style="color: var(--cyan); font-weight: 600;">2.3 KB</td>
+                        <td>4.0 KB</td>
+                        <td>4.0 - 6.4 KB</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="falcon-conclusion fade-in">
+            <p>Same security. <span>3.5x smaller</span>. <span>6.7x faster</span> verification.</p>
         </div>
     </section>
 
-    <section class="cta">
-        <div class="cta-box">
-            <h2>Join the Quantum-Resistant Future</h2>
-            <p>Star the repo, follow the journey, and be part of building the most secure blockchain infrastructure ever created.</p>
-            <div class="cta-buttons">
-                <a href="https://github.com/bahuang081-svg/Qylith" class="btn btn-primary" target="_blank">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                    GitHub
-                </a>
-                <a href="https://twitter.com/ZoahQYL" class="btn btn-secondary" target="_blank">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                    Twitter
-                </a>
-            </div>
+    <!-- Manifesto Section -->
+    <section class="manifesto" id="manifesto">
+        <div class="manifesto-number fade-in">18</div>
+        <p class="manifesto-text fade-in">Building the post-quantum future.</p>
+        <p class="manifesto-bio fade-in">
+            Independent researcher and protocol architect. Obsessed with the intersection of cryptographic security and decentralized systems. No VC funding. No hype. Just math and code.
+        </p>
+        <div class="manifesto-links fade-in">
+            <a href="https://github.com/zoah" target="_blank">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+                @zoah
+            </a>
+            <a href="https://twitter.com/zoah_dev" target="_blank">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+                @zoah_dev
+            </a>
         </div>
     </section>
 
+    <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="footer-logo">Qylith</div>
-            <div class="footer-links">
-                <a href="https://github.com/bahuang081-svg/Qylith" target="_blank">GitHub</a>
-                <a href="https://twitter.com/ZoahQYL" target="_blank">Twitter</a>
-                <a href="#threat">Threat</a>
-                <a href="#architecture">Architecture</a>
+            <div class="footer-left">
+                <span class="footer-logo">Qylith</span>
+                <span class="footer-copy">© 2026</span>
             </div>
-            <p class="footer-copy">© 2024 Qylith. The quantum-resistant future starts here.</p>
+            <ul class="footer-links">
+                <li><a href="https://github.com/qylith" target="_blank">GitHub</a></li>
+                <li><a href="https://twitter.com/qylith" target="_blank">Twitter</a></li>
+                <li><a href="mailto:contact@qylith.xyz">Contact</a></li>
+            </ul>
         </div>
+        <p class="footer-tagline">Built with conviction. Powered by math.</p>
     </footer>
 
     <script>
-        // Quantum Particle Canvas
-        const canvas = document.getElementById('quantum-canvas');
+        // Particle System
+        const canvas = document.getElementById('particles');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        let mouseX = 0;
-        let mouseY = 0;
-
+        let mouseX = 0, mouseY = 0;
+        
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-
+        
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
-
+        
         class Particle {
             constructor() {
                 this.reset();
             }
-
+            
             reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
                 this.size = Math.random() * 2 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.speedY = (Math.random() - 0.5) * 0.5;
-                this.color = Math.random() > 0.5 ? '#00D4FF' : '#7B2FFF';
-                this.opacity = Math.random() * 0.5 + 0.1;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.speedY = (Math.random() - 0.5) * 0.3;
+                this.opacity = Math.random() * 0.5 + 0.2;
+                this.hue = Math.random() > 0.5 ? 190 : 260; // Cyan or Purple
             }
-
+            
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-
-                // Mouse interaction
-                const dx = mouseX - this.x;
-                const dy = mouseY - this.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 150) {
-                    this.x -= dx * 0.01;
-                    this.y -= dy * 0.01;
-                }
-
+                
+                // Subtle parallax based on mouse
+                const dx = mouseX - canvas.width / 2;
+                const dy = mouseY - canvas.height / 2;
+                this.x += dx * 0.00005;
+                this.y += dy * 0.00005;
+                
                 if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
                     this.reset();
                 }
             }
-
+            
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = `hsla(${this.hue}, 100%, 60%, ${this.opacity})`;
                 ctx.fill();
-                ctx.globalAlpha = 1;
             }
         }
-
+        
         // Create particles
         for (let i = 0; i < 80; i++) {
             particles.push(new Particle());
         }
-
+        
+        // Connect particles with lines
         function connectParticles() {
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
                     const dy = particles[i].y - particles[j].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 120) {
+                    
+                    if (distance < 150) {
                         ctx.beginPath();
-                        ctx.strokeStyle = particles[i].color;
-                        ctx.globalAlpha = 0.1 * (1 - distance / 120);
+                        ctx.strokeStyle = `rgba(0, 212, 255, ${0.1 * (1 - distance / 150)})`;
                         ctx.lineWidth = 0.5;
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
                         ctx.stroke();
-                        ctx.globalAlpha = 1;
                     }
                 }
             }
         }
-
-        function animate() {
+        
+        function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
             particles.forEach(p => {
                 p.update();
                 p.draw();
             });
+            
             connectParticles();
-            requestAnimationFrame(animate);
+            requestAnimationFrame(animateParticles);
         }
-
-        animate();
-
+        
+        animateParticles();
+        
+        // Mouse tracking
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
         });
-
-        // Counter Animation
-        function animateCounter(element) {
-            const target = parseFloat(element.dataset.target);
-            const suffix = element.dataset.suffix || '';
-            const duration = 2000;
-            const start = 0;
-            const startTime = performance.now();
-
-            function update(currentTime) {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-                const current = start + (target - start) * easeOutQuart;
-
-                if (target === 2027) {
-                    element.textContent = Math.floor(current);
-                } else if (target === 2.5) {
-                    element.textContent = '$' + current.toFixed(1) + 'T';
-                } else {
-                    element.textContent = Math.floor(current);
-                }
-
-                if (progress < 1) {
-                    requestAnimationFrame(update);
-                }
-            }
-
-            requestAnimationFrame(update);
-        }
-
-        // Intersection Observer for counters
+        
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const counters = entry.target.querySelectorAll('.threat-number');
-                    counters.forEach(counter => {
-                        if (!counter.dataset.animated) {
-                            counter.dataset.animated = 'true';
-                            animateCounter(counter);
-                        }
-                    });
+                    entry.target.classList.add('visible');
+                    
+                    // Trigger counter animation for stat numbers
+                    if (entry.target.querySelector('.stat-number')) {
+                        animateCounters();
+                    }
                 }
             });
-        }, { threshold: 0.3 });
-
-        observer.observe(document.getElementById('threat'));
-
-        // Smooth scroll for nav links
+        }, observerOptions);
+        
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        
+        // Counter Animation
+        function animateCounters() {
+            document.querySelectorAll('.stat-number').forEach(counter => {
+                if (counter.dataset.animated) return;
+                counter.dataset.animated = true;
+                
+                const target = parseFloat(counter.dataset.target);
+                const suffix = counter.dataset.suffix || '';
+                const duration = 2000;
+                const start = performance.now();
+                
+                function update(currentTime) {
+                    const elapsed = currentTime - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    
+                    // Easing function
+                    const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                    const current = target * easeOutQuart;
+                    
+                    if (target === 0) {
+                        counter.textContent = '0';
+                    } else if (target === 2027) {
+                        counter.textContent = Math.round(current);
+                    } else {
+                        counter.textContent = '$' + current.toFixed(1) + suffix;
+                    }
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(update);
+                    }
+                }
+                
+                requestAnimationFrame(update);
+            });
+        }
+        
+        // Smooth scroll for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
+        
+        // Stack layer interaction for mobile (tap to toggle)
+        if ('ontouchstart' in window) {
+            document.querySelectorAll('.stack-layer').forEach(layer => {
+                layer.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    layer.classList.toggle('active');
+                });
+            });
+        }
     </script>
 </body>
 </html>
